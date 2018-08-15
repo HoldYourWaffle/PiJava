@@ -18,6 +18,8 @@
 
 package jimbo.pijava.blinkt;
 
+import java.awt.Color;
+
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
@@ -40,7 +42,12 @@ public class BlinktController {
 	/** The data for each LED in the chain */
 	private final int[] data;
 	
-	/** Brightness (0 - 31) field used to set colors */
+	/**
+	 * Brightness (0 - 31) field used to set colors<br>
+	 * <br>
+	 * <b>Note that most methods ({@link #set(int, int, int, int, float) set}, {@link #setBrightness(float) setBrightness}, ...) accept a float value of 0-1,
+	 * {@link #getBrightness() getBrightness} converts between these formats</b>
+	 */
 	private int brightness;
 	
 	/**
@@ -89,22 +96,26 @@ public class BlinktController {
 		latch();
 	}
 	
+	
 	/** Both {@link #clear()} and {@link #setBrightness(float)} to 0 */
 	public void reset() {
 		clear();
 		setBrightness(1);
 	}
 	
+	
 	/** Clear the data for pixel n */
 	public void clear(int n) {
 		data[n] = 0;
 	}
+	
 	
 	/** Clear the data of all pixels */
 	public void clear() {
 		for (int i = 0; i < 8; ++i)
 			data[i] = 0;
 	}
+	
 	
 	
 	/**
@@ -118,16 +129,17 @@ public class BlinktController {
 	}
 	
 	
-	/** Get {@link #brightness} */
+	/** Get {@link #brightness} as a float in the range of 0-1 */
 	public float getBrightness() {
 		return brightness / 31F;
 	}
 	
 	
+	
 	/**
 	 * Set an LED to a specific red, green, blue and brightness value
 	 * 
-	 * @param n The LED number (0-7)
+	 * @param n The LED index (0-7)
 	 * @param red The red value (0-255)
 	 * @param green The green value (0-255)
 	 * @param blue The blue value (0-255)
@@ -136,7 +148,7 @@ public class BlinktController {
 	 * @see #push()
 	 */
 	public void set(int n, int red, int green, int blue, float brightness) {
-		if (n < 0 || n >= 8) throw new IllegalArgumentException("n must be larget than 0 and smaller than 8");
+		if (n < 0 || n >= 8) throw new IllegalArgumentException("n must be larger than 0 and smaller than 8");
 		if (red < 0 || red > 255) throw new IllegalArgumentException("red must be between 0 and 255");
 		if (green < 0 || green > 255) throw new IllegalArgumentException("green must be between 0 and 255");
 		if (blue < 0 || blue > 255) throw new IllegalArgumentException("blue must be between 0 and 255");
@@ -145,9 +157,9 @@ public class BlinktController {
 	}
 	
 	/**
-	 * Set a LED to a specific red, green and blue value using a brightness of {@link #brightness}
+	 * Set an LED to a specific red, green and blue value using the set {@link #setBrightness(float) default brightness}
 	 * 
-	 * @param n The LED number (0-7)
+	 * @param n The LED index (0-7)
 	 * @param red The red value (0-255)
 	 * @param green The green value (0-255)
 	 * @param blue The blue value (0-255)
@@ -156,15 +168,40 @@ public class BlinktController {
 	 * @see #push()
 	 */
 	public void set(int n, int red, int green, int blue) {
-		if (n < 0 || n >= 8) throw new IllegalArgumentException("n must be larget than 0 and smaller than 8");
-		if (red < 0 || red > 255) throw new IllegalArgumentException("red must be between 0 and 255");
-		if (green < 0 || green > 255) throw new IllegalArgumentException("green must be between 0 and 255");
-		if (blue < 0 || blue > 255) throw new IllegalArgumentException("blue must be between 0 and 255");
-		
-		data[n] = (brightness << 24) | (red << 16) | (green << 8) | blue;
+		set(n, red, green, blue, getBrightness());
+	}
+	
+	/**
+	 * Set an LED to the specified color
+	 * 
+	 * @param n The LED index (0-7)
+	 * @param col The color
+	 * @param brightness The brightness (0-1)
+	 * 
+	 * @see #push()
+	 * @since 1.1
+	 */
+	public void set(int n, Color col, float brightness) {
+		set(n, col.getRed(), col.getGreen(), col.getBlue(), brightness);
+	}
+	
+	/**
+	 * Set an LED to the specified color using the set {@link #setBrightness(float) default brightness}
+	 * 
+	 * @param n The LED index (0-7)
+	 * @param col The color
+	 * 
+	 * @see #setBrightness(float)
+	 * @see #push()
+	 * @since 1.1
+	 */
+	public void set(int n, Color col) {
+		set(n, col, getBrightness());
 	}
 	
 	
+	
+	//================ INTERNAL STUFF ================//
 	
 	/** Write out a single byte. It goes out MSB first */
 	private void write_byte(byte out) {
