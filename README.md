@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-	compile 'com.github.HoldYourWaffle:blinkt4j:v1.0'
+	compile 'com.github.HoldYourWaffle:blinkt4j:v1.1'
 }
 ```
 
