@@ -13,6 +13,7 @@ To include this api in your gradle project use [jitpack](https://jitpack.io/):
 ```gradle
 repositories {
 	maven { url 'https://jitpack.io' }
+	maven { url 'https://oss.sonatype.org/content/groups/public' } //pi4j repository
 }
 
 dependencies {
