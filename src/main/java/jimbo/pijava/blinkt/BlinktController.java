@@ -200,6 +200,212 @@ public class BlinktController {
 	}
 	
 	
+	/**
+	 * Set all LEDs to the specified color
+	 * 
+	 * @param red The red value (0-255)
+	 * @param green The green value (0-255)
+	 * @param blue The blue value (0-255)
+	 * @param brightness The brightness (0-1)
+	 * 
+	 * @see #push()
+	 * @since 1.2
+	 */
+	public void setAll(int red, int green, int blue, float brightness) {
+		for (int i = 0; i <= 7; i++)
+			set(i, red, green, blue, brightness);
+	}
+	
+	/**
+	 * Set all LEDs to the specified color using the set {@link #setBrightness(float) default brightness}
+	 * 
+	 * @param red The red value (0-255)
+	 * @param green The green value (0-255)
+	 * @param blue The blue value (0-255)
+	 * 
+	 * @see #setBrightness(float)
+	 * @see #push()
+	 * @since 1.2
+	 */
+	public void setAll(int red, int green, int blue) {
+		setAll(red, green, blue, getBrightness());
+	}
+	
+	/**
+	 * Set all LEDs to the specified color
+	 * 
+	 * @param col The color
+	 * @param brightness The brightness (0-1)
+	 * 
+	 * @see #push()
+	 * @since 1.2
+	 */
+	public void setAll(Color col, float brightness) {
+		setAll(col.getRed(), col.getGreen(), col.getBlue(), brightness);
+	}
+	
+	/**
+	 * Set all LEDs to the specified color using the set {@link #setBrightness(float) default brightness}
+	 * 
+	 * @param col The color
+	 * 
+	 * @see #setBrightness(float)
+	 * @see #push()
+	 * @since 1.2
+	 */
+	public void setAll(Color col) {
+		setAll(col, getBrightness());
+	}
+	
+	
+	/**
+	 * Set the Blinkt to a gradient going from <code>colStart</code> to <code>colEnd</code> with a brightness going from <code>brightnessStart</code> to <code>brightnessEnd</code>
+	 * 
+	 * @param colStart The color to start with
+	 * @param colEnd The color to end with
+	 * @param brightnessStart The brightness to start with (0-1)
+	 * @param brightnessEnd The brightness to end with (0-1)
+	 * 
+	 * @see #push()
+	 * @since 1.2
+	 */
+	public void setGradient(Color colStart, Color colEnd, float brightnessStart, float brightnessEnd) {
+		float brightPerI = (brightnessEnd - brightnessStart) / 7F;
+		for (int i = 0; i <= 7; i++)
+			set(i, mixColors(colStart, colEnd, i/7D), brightnessStart + i*brightPerI);
+	}
+	
+	/**
+	 * Set the Blinkt to a gradient going from <code>colStart</code> to <code>colEnd</code> with a brightness of <code>brightness</code>
+	 * 
+	 * @param colStart The color to start with
+	 * @param colEnd The color to end with
+	 * @param brightness The brightness (0-1)
+	 * 
+	 * @see #push()
+	 * @since 1.2
+	 */
+	public void setGradient(Color colStart, Color colEnd, float brightness) {
+		setGradient(colStart, colEnd, brightness, brightness);
+	}
+	
+	/**
+	 * Set the Blinkt to a gradient with a constant <code>color</code> and a brightness going from <code>brightnessStart</code> to <code>brightnessEnd</code>
+	 * 
+	 * @param color The color of the gradient
+	 * @param brightnessStart The brightness to start with (0-1)
+	 * @param brightnessEnd The brightness to end with (0-1)
+	 * 
+	 * @see #push()
+	 * @since 1.2
+	 */
+	public void setGradient(Color color, float brightnessStart, float brightnessEnd) {
+		setGradient(color, color, brightnessStart, brightnessEnd);
+	}
+	
+	/**
+	 * Set the Blinkt to a gradient going from <code>colStart</code> to <code>colEnd</code> using the set {@link #setBrightness(float) default brightness}
+	 * 
+	 * @param colStart The color to start with
+	 * @param colEnd The color to end with
+	 * 
+	 * @see #setBrightness(float)
+	 * @see #push()
+	 * @since 1.2
+	 */
+	public void setGradient(Color colStart, Color colEnd) {
+		setGradient(colStart, colEnd, getBrightness());
+	}
+	
+	
+	/**
+	 * Set the Blinkt to a gradient with the specified start & end color components and start & end brightness
+	 * 
+	 * @param redStart The red component to start with (0-255)
+	 * @param greenStart The green component to start with (0-255)
+	 * @param blueStart The blue component to start with (0-255)
+	 * 
+	 * @param redEnd The red component to end with (0-255)
+	 * @param greenEnd The green component to end with (0-255)
+	 * @param blueEnd The blue component to end with (0-255)
+	 * 
+	 * @param brightnessStart The brightness to start with (0-1)
+	 * @param brightnessEnd The brightness to end with (0-1)
+	 * 
+	 * @see #push()
+	 * @since 1.2
+	 */
+	public void setGradient(int redStart, int greenStart, int blueStart, int redEnd, int greenEnd, int blueEnd, float brightnessStart, float brightnessEnd) {
+		setGradient(new Color(redStart, greenStart, blueStart), new Color(redEnd, greenEnd, blueEnd), brightnessStart, brightnessEnd);
+	}
+	
+	/**
+	 * Set the Blinkt to a gradient with the specified start & end color components and <code>brightness</code>
+	 * 
+	 * @param redStart The red component to start with (0-255)
+	 * @param greenStart The green component to start with (0-255)
+	 * @param blueStart The blue component to start with (0-255)
+	 * 
+	 * @param redEnd The red component to end with (0-255)
+	 * @param greenEnd The green component to end with (0-255)
+	 * @param blueEnd The blue component to end with (0-255)
+	 * 
+	 * @param brightness The brightness (0-1)
+	 * 
+	 * @see #push()
+	 * @since 1.2
+	 */
+	public void setGradient(int redStart, int greenStart, int blueStart, int redEnd, int greenEnd, int blueEnd, float brightness) {
+		setGradient(redStart, greenStart, blueStart, redEnd, greenEnd, blueEnd, brightness, brightness);
+	}
+	
+	/**
+	 * Set the Blinkt to a gradient with the specified (constant) color components and start & end brightness
+	 * 
+	 * @param red The red value (0-255)
+	 * @param green The green value (0-255)
+	 * @param blue The blue value (0-255)
+	 * 
+	 * @param brightnessStart The brightness to start with (0-1)
+	 * @param brightnessEnd The brightness to end with (0-1)
+	 * 
+	 * @see #push()
+	 * @since 1.2
+	 */
+	public void setGradient(int red, int green, int blue, float brightnessStart, float brightnessEnd) {
+		setGradient(red, green, blue, red, green, blue, brightnessStart, brightnessEnd);
+	}
+	
+	/**
+	 * Set the Blinkt to a gradient with the specified start & end color components using the set {@link #setBrightness(float) default brightness}
+	 * 
+	 * @param redStart The red component to start with (0-255)
+	 * @param greenStart The green component to start with (0-255)
+	 * @param blueStart The blue component to start with (0-255)
+	 * 
+	 * @param redEnd The red component to end with (0-255)
+	 * @param greenEnd The green component to end with (0-255)
+	 * @param blueEnd The blue component to end with (0-255)
+	 * 
+	 * @see #push()
+	 * @since 1.2
+	 */
+	public void setGradient(int redStart, int greenStart, int blueStart, int redEnd, int greenEnd, int blueEnd) {
+		setGradient(redStart, greenStart, blueStart, redEnd, greenEnd, blueEnd, getBrightness());
+	}
+	
+	
+	
+	
+	
+	private Color mixColors(Color a, Color b, double percent) {
+		double inverse_percent = 1.0 - percent;
+		int redPart =	(int) (a.getRed()	*	percent + b.getRed()	*	inverse_percent);
+		int greenPart =	(int) (a.getGreen()	*	percent + b.getGreen()	*	inverse_percent);
+		int bluePart =	(int) (a.getBlue()	*	percent + b.getBlue()	*	inverse_percent);
+		return new Color(redPart, greenPart, bluePart);
+	}
+	
 	
 	//================ INTERNAL STUFF ================//
 	
