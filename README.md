@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-	compile 'com.github.HoldYourWaffle:blinkt4j:v1.1'
+	compile 'com.github.HoldYourWaffle:blinkt4j:v1.2'
 }
 ```
 
@@ -43,7 +43,7 @@ public class BlinktExample {
 			
 			blinkt.set(i-1, Color.RED); //set the left pixel to red
 			blinkt.set(i, 0, 255, 0); //set the middle pixel to green
-			blinkt.set(i+1, Color.BLUE, 1); //set the  last pixel to blue with full brightness
+			blinkt.set(i+1, Color.BLUE, 1); //set the  last pixel to blue at full brightness
 			
 			blinkt.push(); //push state to the GPIO pins
 			
@@ -66,6 +66,6 @@ public class BlinktExample {
 }
 ```
 
-For futher information you can read the included javadocs.
+For futher information read the included javadocs.
 
 If you get permission denied errors either run your program with `sudo` or add the user to the `gpio` group with: `sudo usermod -a -G gpio username` (the default user is `pi`)
