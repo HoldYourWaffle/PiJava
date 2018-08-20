@@ -395,6 +395,17 @@ public class BlinktController {
 	}
 	
 	
+	/**
+	 * Set the Blinkt to the specified color and brightness array
+	 * 
+	 * @param reds The array for the red color components (0-255). Must have a length of 8
+	 * @param greens The array for the green color components (0-255). Must have a length of 8
+	 * @param blues The array for the blue color components (0-255). Must have a length of 8
+	 * @param brightnesses The array for the pixel brightnesses (0-1). Must have a length of 8
+	 * 
+	 * @see #push()
+	 * @since 1.3
+	 */
 	public void setTo(int[] reds, int[] greens, int[] blues, float[] brightnesses) {
 		if (!(reds.length == 8 && greens.length == 8 && blues.length == 8 && brightnesses.length == 8))
 			throw new IllegalArgumentException("Invalid component arrays. All arrays must have a length of 8");
@@ -403,26 +414,73 @@ public class BlinktController {
 			set(i, reds[i], greens[i], blues[i], brightnesses[i]);
 	}
 	
+	/**
+	 * Set the Blinkt to the specified color array with a single brightness
+	 * 
+	 * @param reds The array for the red color components (0-255). Must have a length of 8
+	 * @param greens The array for the green color components (0-255). Must have a length of 8
+	 * @param blues The array for the blue color components (0-255). Must have a length of 8
+	 * @param brightness The brightness used (0-1)
+	 * 
+	 * @see #push()
+	 * @since 1.3
+	 */
 	public void setTo(int[] reds, int[] greens, int[] blues, float brightness) {
 		setTo(reds, greens, blues, new float[] { brightness, brightness, brightness, brightness, brightness, brightness, brightness });
 	}
 	
+	/**
+	 * Set the Blinkt to the specified color array using the set {@link #setBrightness(float) default brightness}
+	 * 
+	 * @param reds The array for the red color components (0-255). Must have a length of 8
+	 * @param greens The array for the green color components (0-255). Must have a length of 8
+	 * @param blues The array for the blue color components (0-255). Must have a length of 8
+	 * 
+	 * @see #push()
+	 * @since 1.3
+	 */
 	public void setTo(int[] reds, int[] greens, int[] blues) {
 		setTo(reds, greens, blues, brightness);
 	}
 	
+	/**
+	 * Set the Blinkt to the specified color and brightness array
+	 * 
+	 * @param colors The color array. Must have a length of 8
+	 * @param brightnesses The brightness array (0-1). Must have a length of 8
+	 * 
+	 * @see #push()
+	 * @since 1.3
+	 */
 	public void setTo(Color[] colors, float[] brightnesses) {
-		if (colors.length != 8) throw new IllegalArgumentException("Color array should have a length of 8");
-		if (brightnesses.length != 8) throw new IllegalArgumentException("Brightness array should have a length of 8");
+		if (colors.length != 8) throw new IllegalArgumentException("Color array must have a length of 8");
+		if (brightnesses.length != 8) throw new IllegalArgumentException("Brightness array must have a length of 8");
 		
 		for (int i = 0; i <= 7; i++)
 			set(i, colors[i], brightnesses[i]);
 	}
 	
+	/**
+	 * Set the Blinkt to the specified color array with a single brightness
+	 * 
+	 * @param colors The color array. Must have a length of 8
+	 * @param brightnesses The brightness (0-1) used
+	 * 
+	 * @see #push()
+	 * @since 1.3
+	 */
 	public void setTo(Color[] colors, float brightness) {
 		setTo(colors, new float[] { brightness, brightness, brightness, brightness, brightness, brightness, brightness });
 	}
 	
+	/**
+	 * Set the Blinkt to the specified color array using the set {@link #setBrightness(float) default brightness}
+	 * 
+	 * @param colors The color array. Must have a length of 8
+	 * 
+	 * @see #push()
+	 * @since 1.3
+	 */
 	public void setTo(Color[] colors) {
 		setTo(colors, brightness);
 	}
