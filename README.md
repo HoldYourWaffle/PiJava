@@ -6,7 +6,7 @@ This is a java api for controlling the [Pimoroni Blinkt](https://shop.pimoroni.c
 
 
 ## Usage
-To use this you need to have at least java 8 (for [pi4j](https://github.com/Pi4J/pi4j)) as well as the `wiringpi` package installed on your Raspberry Pi.
+To use this you need to have at least Java 8 (for [pi4j](https://github.com/Pi4J/pi4j)) as well as the `wiringpi` package installed on your Raspberry Pi.
 
 ### Gradle
 To include this api in your gradle project use [jitpack](https://jitpack.io/):
@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-	compile 'com.github.HoldYourWaffle:blinkt4j:v1.2'
+	compile 'com.github.HoldYourWaffle:blinkt4j:v1.3'
 }
 ```
 
