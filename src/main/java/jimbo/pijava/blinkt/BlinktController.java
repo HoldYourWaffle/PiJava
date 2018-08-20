@@ -426,7 +426,7 @@ public class BlinktController {
 	 * @since 1.3
 	 */
 	public void setTo(int[] reds, int[] greens, int[] blues, float brightness) {
-		setTo(reds, greens, blues, new float[] { brightness, brightness, brightness, brightness, brightness, brightness, brightness });
+		setTo(reds, greens, blues, new float[] { brightness, brightness, brightness, brightness, brightness, brightness, brightness, brightness });
 	}
 	
 	/**
@@ -470,7 +470,7 @@ public class BlinktController {
 	 * @since 1.3
 	 */
 	public void setTo(Color[] colors, float brightness) {
-		setTo(colors, new float[] { brightness, brightness, brightness, brightness, brightness, brightness, brightness });
+		setTo(colors, new float[] { brightness, brightness, brightness, brightness, brightness, brightness, brightness, brightness });
 	}
 	
 	/**
