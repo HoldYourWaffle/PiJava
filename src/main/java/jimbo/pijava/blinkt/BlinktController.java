@@ -395,6 +395,39 @@ public class BlinktController {
 	}
 	
 	
+	public void setTo(int[] reds, int[] greens, int[] blues, float[] brightnesses) {
+		if (!(reds.length == 8 && greens.length == 8 && blues.length == 8 && brightnesses.length == 8))
+			throw new IllegalArgumentException("Invalid component arrays. All arrays must have a length of 8");
+		
+		for (int i=0; i <= 7; i++)
+			set(i, reds[i], greens[i], blues[i], brightnesses[i]);
+	}
+	
+	public void setTo(int[] reds, int[] greens, int[] blues, float brightness) {
+		setTo(reds, greens, blues, new float[] { brightness, brightness, brightness, brightness, brightness, brightness, brightness });
+	}
+	
+	public void setTo(int[] reds, int[] greens, int[] blues) {
+		setTo(reds, greens, blues, brightness);
+	}
+	
+	public void setTo(Color[] colors, float[] brightnesses) {
+		if (colors.length != 8) throw new IllegalArgumentException("Color array should have a length of 8");
+		if (brightnesses.length != 8) throw new IllegalArgumentException("Brightness array should have a length of 8");
+		
+		for (int i = 0; i <= 7; i++)
+			set(i, colors[i], brightnesses[i]);
+	}
+	
+	public void setTo(Color[] colors, float brightness) {
+		setTo(colors, new float[] { brightness, brightness, brightness, brightness, brightness, brightness, brightness });
+	}
+	
+	public void setTo(Color[] colors) {
+		setTo(colors, brightness);
+	}
+	
+	
 	
 	
 	
