@@ -97,7 +97,7 @@ public class BlinktController {
 	}
 	
 	
-	/** Both {@link #clear()} and {@link #setBrightness(float)} to 0 */
+	/** {@link #clear()} and {@link #setBrightness(float)} to 1 */
 	public void reset() {
 		clear();
 		setBrightness(1);
